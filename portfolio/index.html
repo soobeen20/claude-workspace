@@ -585,6 +585,18 @@
       "Content-Type": "application/json",
     };
 
+    // Client-side pre-check for instant feedback. The database trigger
+    // (see supabase/profanity_filter.sql) is the real, unbypassable filter —
+    // this just avoids a round trip for the common case.
+    var BANNED_WORDS = [
+      "씨발", "시발", "개새끼", "병신", "지랄", "좆", "존나", "새끼", "걸레", "창녀",
+      "fuck", "shit", "bitch", "asshole", "bastard", "cunt", "dick", "whore", "slut",
+    ];
+    function containsBannedWord(text) {
+      var normalized = text.toLowerCase().replace(/\s+/g, "");
+      return BANNED_WORDS.some(function (word) { return normalized.indexOf(word) !== -1; });
+    }
+
     function formatTime(iso) {
       return new Date(iso).toLocaleString("ko-KR", {
         year: "numeric", month: "2-digit", day: "2-digit",
@@ -651,6 +663,11 @@
       var content = document.getElementById("gb-content").value.trim();
       if (!name || !content) return;
 
+      if (containsBannedWord(name) || containsBannedWord(content)) {
+        status.textContent = "부적절한 표현이 포함되어 있어 등록할 수 없습니다.";
+        return;
+      }
+
       submitBtn.disabled = true;
       status.textContent = "등록 중...";
 
@@ -660,16 +677,21 @@
         body: JSON.stringify({ name: name, content: content }),
       })
         .then(function (res) {
-          if (!res.ok) throw new Error("post failed");
-          return res.json();
+          if (res.ok) return res.json();
+          return res.json().catch(function () { return {}; }).then(function (body) {
+            var isProfanity = /inappropriate language/i.test(body.message || "");
+            throw new Error(isProfanity ? "profanity" : "post failed");
+          });
         })
         .then(function () {
           form.reset();
           status.textContent = "등록되었습니다.";
           loadMessages();
         })
-        .catch(function () {
-          status.textContent = "등록에 실패했습니다. 다시 시도해주세요.";
+        .catch(function (err) {
+          status.textContent = err.message === "profanity"
+            ? "부적절한 표현이 포함되어 있어 등록할 수 없습니다."
+            : "등록에 실패했습니다. 다시 시도해주세요.";
         })
         .finally(function () {
           submitBtn.disabled = false;
