@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>김수민 — Growth &amp; Performance Marketer</title>
-<meta name="description" content="B2B SaaS와 DTC 브랜드를 오가며 퍼포먼스 마케팅, SEO, 마케팅 자동화로 성장 곡선을 설계해온 김수민의 포트폴리오입니다.">
+<title>이수빈 — Growth &amp; Performance Marketer</title>
+<meta name="description" content="B2B SaaS와 DTC 브랜드를 오가며 퍼포먼스 마케팅, SEO, 마케팅 자동화로 성장 곡선을 설계해온 이수빈의 포트폴리오입니다.">
 <style>
   :root {
     --bg: #0A0D10;
@@ -250,6 +250,34 @@
   }
   .skill-group .tag-row .tag { background: var(--surface); }
 
+  /* ---------- guestbook ---------- */
+  .guestbook-form {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px; box-shadow: var(--shadow);
+    margin-bottom: 32px;
+  }
+  .gb-row { margin-bottom: 12px; }
+  .gb-row input, .gb-row textarea {
+    width: 100%; font: inherit; color: var(--ink);
+    background: var(--bg-soft); border: 1px solid var(--border-strong);
+    border-radius: 10px; padding: 12px 14px; resize: vertical;
+  }
+  .gb-row textarea { min-height: 88px; }
+  .gb-row input:focus, .gb-row textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .guestbook-form .btn { border: none; cursor: pointer; }
+  .guestbook-form .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .gb-status { font-size: 13px; color: var(--muted); margin: 12px 0 0; min-height: 1em; }
+  .guestbook-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .gb-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 20px;
+  }
+  .gb-item-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .gb-name { font-weight: 700; font-size: 14px; }
+  .gb-time { font-size: 12px; color: var(--muted); }
+  .gb-content { margin: 0; color: var(--ink); font-size: 14.5px; white-space: pre-wrap; word-break: break-word; }
+  .gb-empty { color: var(--muted); font-size: 14px; text-align: center; padding: 20px 0; }
+
   /* ---------- contact ---------- */
   .contact-panel {
     position: relative; overflow: hidden;
@@ -302,12 +330,13 @@
 
 <nav class="top">
   <div class="wrap">
-    <span class="brand">김<em>수민</em></span>
+    <span class="brand">이<em>수빈</em></span>
     <div class="nav-right">
       <ul>
         <li><a href="#metrics">성과</a></li>
         <li><a href="#career">경력</a></li>
         <li><a href="#skills">스킬</a></li>
+        <li><a href="#guestbook">방명록</a></li>
         <li><a href="#contact">연락처</a></li>
       </ul>
       <button class="theme-toggle" type="button" id="theme-toggle" aria-label="라이트/다크 모드 전환">
@@ -323,9 +352,9 @@
   <header class="hero">
     <p class="badge reveal"><span class="dot"></span> Open to new opportunities · Growth &amp; Performance Marketing</p>
     <h1 class="headline reveal">숫자로 증명하는<br><span class="accent-text">그로스 마케팅.</span></h1>
-    <p class="lede reveal">B2B SaaS와 DTC 브랜드를 오가며 퍼포먼스 마케팅, SEO, 마케팅 자동화로 성장 곡선을 설계해온 김수민입니다. AI 도구로 콘텐츠와 리포팅을 자동화하고, 데이터로 다음 실험을 결정합니다.</p>
+    <p class="lede reveal">B2B SaaS와 DTC 브랜드를 오가며 퍼포먼스 마케팅, SEO, 마케팅 자동화로 성장 곡선을 설계해온 이수빈입니다. AI 도구로 콘텐츠와 리포팅을 자동화하고, 데이터로 다음 실험을 결정합니다.</p>
     <div class="cta-row reveal">
-      <a class="btn btn-primary" href="mailto:soomin.kim@example.com">
+      <a class="btn btn-primary" href="mailto:subin.lee@example.com">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         이메일 보내기
       </a>
@@ -457,19 +486,19 @@
       <h2>함께 성장할 다음 팀을 찾고 있습니다</h2>
       <p class="sub">B2B SaaS 그로스, PLG, AI 기반 마케팅 자동화에 관심 있는 팀이라면 편하게 연락 주세요.</p>
       <ul class="contact-actions">
-        <li><a class="btn" href="mailto:soomin.kim@example.com">
+        <li><a class="btn" href="mailto:subin.lee@example.com">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          soomin.kim@example.com
+          subin.lee@example.com
         </a></li>
         <li><a class="btn" href="tel:010-1234-5678">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2C9.5 21 3 14.5 3 6a2 2 0 0 1 1-2z"/></svg>
           010-1234-5678
         </a></li>
-        <li><a class="btn" href="https://soomin.example.com">
+        <li><a class="btn" href="https://subin.example.com">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg>
           Portfolio
         </a></li>
-        <li><a class="btn" href="https://linkedin.com/in/soomin-kim">
+        <li><a class="btn" href="https://linkedin.com/in/subin-lee">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
           LinkedIn
         </a></li>
@@ -477,9 +506,32 @@
     </div>
   </section>
 
+  <section id="guestbook">
+    <div class="section-head reveal">
+      <span class="index mono">03</span>
+      <h2>방명록</h2>
+      <div class="rule"></div>
+    </div>
+
+    <form class="guestbook-form reveal" id="guestbook-form">
+      <div class="gb-row">
+        <input type="text" id="gb-name" name="name" placeholder="이름" maxlength="50" required>
+      </div>
+      <div class="gb-row">
+        <textarea id="gb-content" name="content" placeholder="메시지를 남겨주세요" maxlength="500" required></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">남기기</button>
+      <p class="gb-status" id="gb-status" role="status"></p>
+    </form>
+
+    <ul class="guestbook-list reveal" id="guestbook-list">
+      <li class="gb-empty">불러오는 중...</li>
+    </ul>
+  </section>
+
 </div>
 
-<footer class="colophon">Portfolio of Kim Soomin · Updated 2026</footer>
+<footer class="colophon">Portfolio of Lee Subin · Updated 2026</footer>
 
 <script>
   (function () {
@@ -508,6 +560,123 @@
       });
     }, { threshold: 0.15 });
     items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+<script src="config.js"></script>
+<script>
+  (function () {
+    var config = window.__SUPABASE_CONFIG__;
+    var form = document.getElementById("guestbook-form");
+    var list = document.getElementById("guestbook-list");
+    var status = document.getElementById("gb-status");
+    var submitBtn = form.querySelector("button[type=submit]");
+
+    if (!config || !config.url || !config.anonKey) {
+      status.textContent = "방명록을 불러올 수 없습니다. (설정 누락: config.js)";
+      submitBtn.disabled = true;
+      return;
+    }
+
+    var REST_URL = config.url.replace(/\/$/, "") + "/rest/v1/messages";
+    var headers = {
+      apikey: config.anonKey,
+      Authorization: "Bearer " + config.anonKey,
+      "Content-Type": "application/json",
+    };
+
+    function formatTime(iso) {
+      return new Date(iso).toLocaleString("ko-KR", {
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit",
+      });
+    }
+
+    function renderMessages(messages) {
+      list.innerHTML = "";
+      if (!messages.length) {
+        var empty = document.createElement("li");
+        empty.className = "gb-empty";
+        empty.textContent = "아직 방명록이 없습니다. 첫 메시지를 남겨보세요!";
+        list.appendChild(empty);
+        return;
+      }
+      messages.forEach(function (m) {
+        var li = document.createElement("li");
+        li.className = "gb-item";
+
+        var head = document.createElement("div");
+        head.className = "gb-item-head";
+
+        var name = document.createElement("span");
+        name.className = "gb-name";
+        name.textContent = m.name;
+
+        var time = document.createElement("span");
+        time.className = "gb-time mono";
+        time.textContent = formatTime(m.created_at);
+
+        head.appendChild(name);
+        head.appendChild(time);
+
+        var content = document.createElement("p");
+        content.className = "gb-content";
+        content.textContent = m.content;
+
+        li.appendChild(head);
+        li.appendChild(content);
+        list.appendChild(li);
+      });
+    }
+
+    function loadMessages() {
+      fetch(REST_URL + "?select=id,name,content,created_at&order=created_at.desc", { headers: headers })
+        .then(function (res) {
+          if (!res.ok) throw new Error("load failed");
+          return res.json();
+        })
+        .then(renderMessages)
+        .catch(function () {
+          list.innerHTML = "";
+          var err = document.createElement("li");
+          err.className = "gb-empty";
+          err.textContent = "방명록을 불러오지 못했습니다.";
+          list.appendChild(err);
+        });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = document.getElementById("gb-name").value.trim();
+      var content = document.getElementById("gb-content").value.trim();
+      if (!name || !content) return;
+
+      submitBtn.disabled = true;
+      status.textContent = "등록 중...";
+
+      fetch(REST_URL, {
+        method: "POST",
+        headers: Object.assign({ Prefer: "return=representation" }, headers),
+        body: JSON.stringify({ name: name, content: content }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("post failed");
+          return res.json();
+        })
+        .then(function () {
+          form.reset();
+          status.textContent = "등록되었습니다.";
+          loadMessages();
+        })
+        .catch(function () {
+          status.textContent = "등록에 실패했습니다. 다시 시도해주세요.";
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    });
+
+    loadMessages();
   })();
 </script>
 </body>
