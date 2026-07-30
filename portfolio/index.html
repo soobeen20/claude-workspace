@@ -1,0 +1,487 @@
+<title>김수민 — Growth &amp; Performance Marketer</title>
+<style>
+  :root {
+    --bg: #0A0D10;
+    --bg-soft: #10151A;
+    --surface: rgba(255,255,255,0.045);
+    --surface-strong: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.10);
+    --border-strong: rgba(255,255,255,0.20);
+    --ink: #EDEFEF;
+    --muted: #8E9A95;
+    --accent: #34D6BE;
+    --accent-ink: #04211D;
+    --accent-soft: rgba(52,214,190,0.14);
+    --coral: #FF7A59;
+    --coral-soft: rgba(255,122,89,0.16);
+    --shadow: 0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F3F5F3;
+      --bg-soft: #E8EBE7;
+      --surface: rgba(255,255,255,0.72);
+      --surface-strong: rgba(255,255,255,0.92);
+      --border: rgba(13,18,16,0.09);
+      --border-strong: rgba(13,18,16,0.16);
+      --ink: #0E1412;
+      --muted: #565F5A;
+      --accent: #0C8C79;
+      --accent-ink: #F0FBF8;
+      --accent-soft: rgba(12,140,121,0.10);
+      --coral: #D8552F;
+      --coral-soft: rgba(216,85,47,0.10);
+      --shadow: 0 30px 60px -34px rgba(20,30,26,0.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A0D10; --bg-soft: #10151A;
+    --surface: rgba(255,255,255,0.045); --surface-strong: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.10); --border-strong: rgba(255,255,255,0.20);
+    --ink: #EDEFEF; --muted: #8E9A95;
+    --accent: #34D6BE; --accent-ink: #04211D; --accent-soft: rgba(52,214,190,0.14);
+    --coral: #FF7A59; --coral-soft: rgba(255,122,89,0.16);
+    --shadow: 0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+  :root[data-theme="light"] {
+    --bg: #F3F5F3; --bg-soft: #E8EBE7;
+    --surface: rgba(255,255,255,0.72); --surface-strong: rgba(255,255,255,0.92);
+    --border: rgba(13,18,16,0.09); --border-strong: rgba(13,18,16,0.16);
+    --ink: #0E1412; --muted: #565F5A;
+    --accent: #0C8C79; --accent-ink: #F0FBF8; --accent-soft: rgba(12,140,121,0.10);
+    --coral: #D8552F; --coral-soft: rgba(216,85,47,0.10);
+    --shadow: 0 30px 60px -34px rgba(20,30,26,0.25);
+  }
+
+  * { box-sizing: border-box; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
+      "Malgun Gothic", Roboto, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- ambient background blobs ---------- */
+  .glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .glow span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .glow span:nth-child(1) {
+    width: 480px; height: 480px; top: -140px; left: -120px;
+    background: var(--accent);
+  }
+  .glow span:nth-child(2) {
+    width: 420px; height: 420px; top: 220px; right: -160px;
+    background: var(--coral); opacity: 0.16; animation-delay: -9s;
+  }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(40px, 60px) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow span { animation: none; }
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- nav ---------- */
+  nav.top {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.top .wrap { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; }
+  .brand { font-weight: 700; letter-spacing: -0.01em; font-size: 15px; }
+  .brand em { color: var(--accent); font-style: normal; }
+  nav.top ul { list-style: none; display: flex; gap: 26px; margin: 0; padding: 0; }
+  nav.top a { font-size: 13px; color: var(--muted); text-decoration: none; }
+  nav.top a:hover { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 108px 0 84px; position: relative; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 0.03em; color: var(--muted);
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    padding: 6px 14px 6px 10px; margin-bottom: 28px;
+    background: var(--surface);
+  }
+  .badge .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  h1.headline {
+    font-size: clamp(38px, 6.4vw, 68px);
+    line-height: 1.06;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 26px;
+    text-wrap: balance;
+  }
+  h1.headline .accent-text {
+    background: linear-gradient(100deg, var(--accent), var(--coral) 130%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lede { font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 54ch; margin: 0 0 40px; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    padding: 13px 22px; border-radius: 12px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px var(--accent-soft); }
+  .btn-ghost { border: 1px solid var(--border-strong); color: var(--ink); background: var(--surface); }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+  .quickfacts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--muted); }
+  .quickfacts li { list-style: none; display: flex; align-items: center; gap: 22px; }
+  .quickfacts li:not(:last-child)::after { content:""; width: 3px; height: 3px; border-radius: 50%; background: var(--border-strong); }
+
+  /* ---------- metrics ---------- */
+  .metrics {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin: 8px 0 120px;
+  }
+  .metric-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px 20px 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .metric-card:hover { transform: translateY(-4px); border-color: var(--border-strong); }
+  .metric-card .num { font-size: 30px; font-weight: 700; color: var(--accent); display: block; }
+  .metric-card .label { font-size: 12.5px; color: var(--muted); margin-top: 6px; display: block; }
+  .spark { height: 26px; margin-top: 14px; display: flex; align-items: flex-end; gap: 3px; }
+  .spark i { flex: 1; background: var(--accent); opacity: 0.35; border-radius: 2px; display: block; }
+  .metric-card:nth-child(2) .spark i { background: var(--coral); }
+  .metric-card:nth-child(1) .spark i:last-child,
+  .metric-card:nth-child(3) .spark i:last-child,
+  .metric-card:nth-child(4) .spark i:last-child { opacity: 1; }
+  .metric-card:nth-child(2) .spark i:last-child { opacity: 1; }
+
+  /* ---------- section head ---------- */
+  section { padding-bottom: 120px; }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 44px; }
+  .section-head .index { font-size: 13px; color: var(--accent); }
+  .section-head h2 { font-size: clamp(24px, 3.2vw, 32px); font-weight: 800; letter-spacing: -0.01em; margin: 0; }
+  .section-head .rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* ---------- career ---------- */
+  .timeline { position: relative; padding-left: 34px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px;
+    width: 1px; background: linear-gradient(var(--accent), transparent 92%);
+  }
+  .tl-item { position: relative; padding-bottom: 46px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -34px; top: 4px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+  .tl-item.current::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+  .tl-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px 26px 24px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .tl-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .tl-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 6px; }
+  .tl-period {
+    font-size: 12px; color: var(--muted); border: 1px solid var(--border-strong);
+    border-radius: 999px; padding: 3px 11px;
+  }
+  .tl-period.now { color: var(--accent-ink); background: var(--accent); border-color: transparent; font-weight: 700; }
+  .tl-org { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin: 4px 0 2px; }
+  .tl-org .role { color: var(--accent); }
+  .tl-context { font-size: 14px; color: var(--muted); margin: 0 0 18px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12.5px; padding: 6px 12px; border-radius: 999px;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    color: var(--ink); display: inline-flex; align-items: baseline; gap: 6px;
+  }
+  .tag b { color: var(--accent); font-weight: 700; }
+
+  /* ---------- skills ---------- */
+  .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+  .skill-group h3 {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 12px; font-weight: 700;
+  }
+  .skill-group .tag-row .tag { background: var(--surface); }
+
+  /* ---------- contact ---------- */
+  .contact-panel {
+    position: relative; overflow: hidden;
+    border-radius: 28px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    padding: 68px 44px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .contact-panel::before {
+    content: ""; position: absolute; inset: -40% -10% auto -10%; height: 260px;
+    background: radial-gradient(closest-side, var(--accent-soft), transparent);
+    pointer-events: none;
+  }
+  .contact-panel h2 {
+    font-size: clamp(26px, 4.2vw, 40px); font-weight: 800; letter-spacing: -0.02em;
+    margin: 0 0 14px; text-wrap: balance; position: relative;
+  }
+  .contact-panel p.sub { color: var(--muted); max-width: 46ch; margin: 0 auto 40px; position: relative; }
+  .contact-actions {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+    position: relative; margin: 0; padding: 0; list-style: none;
+  }
+  .contact-actions .btn { background: var(--surface-strong); border: 1px solid var(--border-strong); color: var(--ink); font-weight: 600; }
+  .contact-actions .btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+  .contact-actions svg { flex: none; }
+
+  footer.colophon { text-align: center; font-size: 12.5px; color: var(--muted); padding: 40px 0 60px; }
+
+  @media (max-width: 720px) {
+    nav.top ul { display: none; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .skill-groups { grid-template-columns: 1fr; }
+    .contact-panel { padding: 48px 24px; border-radius: 20px; }
+    section { padding-bottom: 80px; }
+    .hero { padding: 72px 0 56px; }
+  }
+</style>
+
+<div class="glow" aria-hidden="true"><span></span><span></span></div>
+
+<nav class="top">
+  <div class="wrap">
+    <span class="brand">김<em>수민</em></span>
+    <ul>
+      <li><a href="#metrics">성과</a></li>
+      <li><a href="#career">경력</a></li>
+      <li><a href="#skills">스킬</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="badge reveal"><span class="dot"></span> Open to new opportunities · Growth &amp; Performance Marketing</p>
+    <h1 class="headline reveal">숫자로 증명하는<br><span class="accent-text">그로스 마케팅.</span></h1>
+    <p class="lede reveal">B2B SaaS와 DTC 브랜드를 오가며 퍼포먼스 마케팅, SEO, 마케팅 자동화로 성장 곡선을 설계해온 김수민입니다. AI 도구로 콘텐츠와 리포팅을 자동화하고, 데이터로 다음 실험을 결정합니다.</p>
+    <div class="cta-row reveal">
+      <a class="btn btn-primary" href="mailto:soomin.kim@example.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        이메일 보내기
+      </a>
+      <a class="btn btn-ghost" href="#career">경력사항 보기</a>
+    </div>
+    <ul class="quickfacts reveal">
+      <li>서울특별시 마포구</li>
+      <li>테크노바 · 마케팅 매니저</li>
+      <li>TOEIC 925</li>
+    </ul>
+  </header>
+
+  <div class="metrics reveal" id="metrics">
+    <div class="metric-card">
+      <span class="num mono">-38%</span>
+      <span class="label">CPL 절감 · 6개월</span>
+      <div class="spark" aria-hidden="true"><i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:30%"></i></div>
+    </div>
+    <div class="metric-card">
+      <span class="num mono">3.4%</span>
+      <span class="label">유료 전환율 (2.1%→)</span>
+      <div class="spark" aria-hidden="true"><i style="height:35%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:90%"></i></div>
+    </div>
+    <div class="metric-card">
+      <span class="num mono">4.2×</span>
+      <span class="label">평균 ROAS · 인플루언서 14건</span>
+      <div class="spark" aria-hidden="true"><i style="height:50%"></i><i style="height:40%"></i><i style="height:80%"></i><i style="height:95%"></i></div>
+    </div>
+    <div class="metric-card">
+      <span class="num mono">2.3×</span>
+      <span class="label">오가닉 트래픽 증가</span>
+      <div class="spark" aria-hidden="true"><i style="height:30%"></i><i style="height:55%"></i><i style="height:60%"></i><i style="height:85%"></i></div>
+    </div>
+  </div>
+
+  <section id="career">
+    <div class="section-head reveal">
+      <span class="index mono">01</span>
+      <h2>경력사항</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item current reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <span class="tl-period now">2022.03 — 현재</span>
+          </div>
+          <p class="tl-org">주식회사 테크노바 · <span class="role">마케팅 매니저</span></p>
+          <p class="tl-context">B2B SaaS 스타트업 (시리즈 A, 임직원 50명) · 퍼포먼스 마케팅 총괄</p>
+          <div class="tag-row">
+            <span class="tag">월 광고 집행 <b>5,000만원</b></span>
+            <span class="tag">CPL <b>-38%</b></span>
+            <span class="tag">전환율 <b>2.1%→3.4%</b></span>
+            <span class="tag">SEO 키워드 10위권 <b>27개</b></span>
+            <span class="tag">HubSpot 워크플로우 <b>12종</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <span class="tl-period">2019.03 — 2022.02</span>
+          </div>
+          <p class="tl-org">주식회사 리브랜드 · <span class="role">마케팅 어시스턴트</span></p>
+          <p class="tl-context">DTC 뷰티 브랜드 (연매출 50억 규모)</p>
+          <div class="tag-row">
+            <span class="tag">인스타그램 <b>2.5만→12만</b></span>
+            <span class="tag">인플루언서 캠페인 <b>14건</b></span>
+            <span class="tag">평균 ROAS <b>4.2배</b></span>
+            <span class="tag">신제품 런칭 <b>6건</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card">
+          <div class="tl-top">
+            <span class="tl-period">2015.03 — 2019.02</span>
+          </div>
+          <p class="tl-org">한양대학교 경영학과 · <span class="role">학사</span></p>
+          <p class="tl-context">마케팅 조사 · 소비자 행동론 · 디지털 마케팅 · 브랜드 관리</p>
+          <div class="tag-row">
+            <span class="tag">동아리 ABLE 38기 <b>부회장</b></span>
+            <span class="tag">학점 <b>3.8/4.5</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head reveal">
+      <span class="index mono">02</span>
+      <h2>보유 스킬</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="skill-groups reveal">
+      <div class="skill-group">
+        <h3>퍼포먼스 마케팅</h3>
+        <div class="tag-row">
+          <span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">Naver Search</span><span class="tag">Kakao Moment</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>데이터 분석</h3>
+        <div class="tag-row">
+          <span class="tag">GA4</span><span class="tag">Amplitude</span><span class="tag">Hotjar</span><span class="tag">Looker Studio</span><span class="tag">Tableau</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>마케팅 오토메이션</h3>
+        <div class="tag-row">
+          <span class="tag">HubSpot</span><span class="tag">Mailchimp</span><span class="tag">Zapier</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>콘텐츠 · SEO · 기술</h3>
+        <div class="tag-row">
+          <span class="tag">SEO 최적화</span><span class="tag">Ahrefs</span><span class="tag">Notion</span><span class="tag">Figma</span><span class="tag">SQL</span><span class="tag">Python(pandas)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-panel reveal">
+      <h2>함께 성장할 다음 팀을 찾고 있습니다</h2>
+      <p class="sub">B2B SaaS 그로스, PLG, AI 기반 마케팅 자동화에 관심 있는 팀이라면 편하게 연락 주세요.</p>
+      <ul class="contact-actions">
+        <li><a class="btn" href="mailto:soomin.kim@example.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          soomin.kim@example.com
+        </a></li>
+        <li><a class="btn" href="tel:010-1234-5678">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2C9.5 21 3 14.5 3 6a2 2 0 0 1 1-2z"/></svg>
+          010-1234-5678
+        </a></li>
+        <li><a class="btn" href="https://soomin.example.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg>
+          Portfolio
+        </a></li>
+        <li><a class="btn" href="https://linkedin.com/in/soomin-kim">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+          LinkedIn
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<footer class="colophon">Portfolio of Kim Soomin · Updated 2026</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = document.querySelectorAll(".reveal");
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
