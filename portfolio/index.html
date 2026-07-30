@@ -16,24 +16,6 @@
     --coral-soft: rgba(255,122,89,0.16);
     --shadow: 0 30px 60px -30px rgba(0,0,0,0.55);
   }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #F3F5F3;
-      --bg-soft: #E8EBE7;
-      --surface: rgba(255,255,255,0.72);
-      --surface-strong: rgba(255,255,255,0.92);
-      --border: rgba(13,18,16,0.09);
-      --border-strong: rgba(13,18,16,0.16);
-      --ink: #0E1412;
-      --muted: #565F5A;
-      --accent: #0C8C79;
-      --accent-ink: #F0FBF8;
-      --accent-soft: rgba(12,140,121,0.10);
-      --coral: #D8552F;
-      --coral-soft: rgba(216,85,47,0.10);
-      --shadow: 0 30px 60px -34px rgba(20,30,26,0.25);
-    }
-  }
   :root[data-theme="dark"] {
     --bg: #0A0D10; --bg-soft: #10151A;
     --surface: rgba(255,255,255,0.045); --surface-strong: rgba(255,255,255,0.07);
@@ -130,6 +112,19 @@
   nav.top ul { list-style: none; display: flex; gap: 26px; margin: 0; padding: 0; }
   nav.top a { font-size: 13px; color: var(--muted); text-decoration: none; }
   nav.top a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 22px; }
+  .theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 999px;
+    border: 1px solid var(--border-strong); background: var(--surface);
+    color: var(--ink); cursor: pointer; padding: 0;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .theme-toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .theme-toggle svg { width: 15px; height: 15px; }
+  .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
 
   /* ---------- hero ---------- */
   .hero { padding: 108px 0 84px; position: relative; }
@@ -289,17 +284,30 @@
   }
 </style>
 
+<script>
+  document.documentElement.setAttribute(
+    "data-theme",
+    localStorage.getItem("portfolio-theme") === "light" ? "light" : "dark"
+  );
+</script>
+
 <div class="glow" aria-hidden="true"><span></span><span></span></div>
 
 <nav class="top">
   <div class="wrap">
     <span class="brand">김<em>수민</em></span>
-    <ul>
-      <li><a href="#metrics">성과</a></li>
-      <li><a href="#career">경력</a></li>
-      <li><a href="#skills">스킬</a></li>
-      <li><a href="#contact">연락처</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#metrics">성과</a></li>
+        <li><a href="#career">경력</a></li>
+        <li><a href="#skills">스킬</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="라이트/다크 모드 전환">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -467,6 +475,16 @@
 <footer class="colophon">Portfolio of Kim Soomin · Updated 2026</footer>
 
 <script>
+  (function () {
+    var STORAGE_KEY = "portfolio-theme";
+    var root = document.documentElement;
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem(STORAGE_KEY, next);
+    });
+  })();
+
   (function () {
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var items = document.querySelectorAll(".reveal");
