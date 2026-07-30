@@ -22,6 +22,8 @@ on conflict do nothing;
 create or replace function public.check_profanity()
 returns trigger
 language plpgsql
+security definer
+set search_path = public
 as $$
 declare
   normalized_name text := lower(regexp_replace(new.name, '\s+', '', 'g'));
